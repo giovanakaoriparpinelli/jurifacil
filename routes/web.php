@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FerramentaController;
 use App\Http\Controllers\PrazoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,8 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'show'])->name('login');
     Route::post('/login', [LoginController::class, 'store']);
 });
+
+Route::get('/clientes/intimacoes', [FerramentaController::class, 'areaCliente'])->name('clientes.intimacoes');
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
@@ -28,4 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/prazos', [PrazoController::class, 'store'])->name('prazos.store');
     Route::patch('/prazos/{prazo}/concluir', [PrazoController::class, 'concluir'])->name('prazos.concluir');
     Route::delete('/prazos/{prazo}', [PrazoController::class, 'destroy'])->name('prazos.destroy');
+
+    Route::get('/ferramentas/movimentacoes', [FerramentaController::class, 'movimentacoes'])->name('ferramentas.movimentacoes');
+    Route::get('/ferramentas/movimentacoes/consulta', [FerramentaController::class, 'movimentacoesConsulta'])->name('ferramentas.movimentacoes.consulta');
+    Route::get('/ferramentas/intimacoes', [FerramentaController::class, 'intimacoes'])->name('ferramentas.intimacoes');
 });

@@ -165,7 +165,14 @@
         </a>
 
         <p class="nav-label">Ferramentas</p>
-        <p class="nav-empty">Em breve</p>
+        <a href="{{ route('ferramentas.movimentacoes') }}" class="nav-item {{ request()->routeIs('ferramentas.movimentacoes*') ? 'active' : '' }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h1.5l1.5-4 3 8 1.5-4H17"/></svg>
+          Movimentações
+        </a>
+        <a href="{{ route('ferramentas.intimacoes') }}" class="nav-item {{ request()->routeIs('ferramentas.intimacoes') ? 'active' : '' }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5M9 13h6M9 17h6"/></svg>
+          Intimações (OAB)
+        </a>
       </nav>
 
       <div class="sidebar-foot">

@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'datajud' => [
+        // Chave pública oficial do CNJ para a API Pública do DataJud (mesma para todos os usuários,
+        // publicada em https://datajud-wiki.cnj.jus.br/api-publica/). Pode ser sobrescrita via .env.
+        'key' => env('DATAJUD_API_KEY', 'cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw=='),
+    ],
+
 ];

@@ -114,6 +114,39 @@
     color: var(--ink-faint);
     font-size: 0.8rem;
   }
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0 18px;
+    color: var(--ink-faint);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .divider:before, .divider:after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .btn-secondary {
+    display: block;
+    width: 100%;
+    padding: 11px;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .btn-secondary:hover {
+    color: var(--accent-2);
+    border-color: var(--accent-2);
+  }
 </style>
 </head>
 <body>
@@ -144,6 +177,9 @@
 
       <button type="submit">Entrar</button>
     </form>
+
+    <div class="divider">ou</div>
+    <a href="{{ route('clientes.intimacoes') }}" class="btn-secondary">Sou cliente e quero consultar minhas intimações</a>
 
     <p class="foot">Sistema em construção — acesso restrito à equipe.</p>
   </div>
