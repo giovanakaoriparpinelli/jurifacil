@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Entrar — Jurifácil</title>
+<title>Criar escritório — Jurifácil</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,7 @@
   }
   .card {
     width: 100%;
-    max-width: 380px;
+    max-width: 420px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 18px;
@@ -53,18 +53,9 @@
     background-clip: text;
     color: transparent;
   }
-  .subtitle {
-    color: var(--ink-soft);
-    font-size: 0.9rem;
-    margin: 0 0 28px;
-  }
-  label {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    margin-bottom: 6px;
-  }
-  input[type="email"], input[type="password"] {
+  .subtitle { color: var(--ink-soft); font-size: 0.9rem; margin: 0 0 28px; }
+  label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 6px; }
+  input[type="text"], input[type="email"], input[type="password"] {
     width: 100%;
     padding: 11px 14px;
     margin-bottom: 18px;
@@ -75,19 +66,7 @@
     font-size: 0.95rem;
     font-family: inherit;
   }
-  input:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-  .remember {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--ink-soft);
-    font-size: 0.85rem;
-    margin-bottom: 22px;
-  }
-  .remember input { width: auto; margin: 0; }
+  input:focus { outline: none; border-color: var(--accent); }
   button {
     width: 100%;
     padding: 12px;
@@ -109,80 +88,44 @@
     font-size: 0.85rem;
     margin-bottom: 18px;
   }
-  .foot {
-    margin-top: 24px;
-    text-align: center;
-    color: var(--ink-faint);
-    font-size: 0.8rem;
-  }
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 22px 0 18px;
-    color: var(--ink-faint);
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .divider:before, .divider:after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-  .btn-secondary {
-    display: block;
-    width: 100%;
-    padding: 11px;
-    box-sizing: border-box;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: transparent;
-    color: var(--ink-soft);
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-align: center;
-  }
-  .btn-secondary:hover {
-    color: var(--accent-2);
-    border-color: var(--accent-2);
-  }
+  .foot { margin-top: 24px; text-align: center; color: var(--ink-faint); font-size: 0.8rem; }
+  .foot a { color: var(--accent-2); }
 </style>
 </head>
 <body>
   <div class="card">
     <p class="brand">Jurifácil</p>
-    <p class="subtitle">Acesse sua conta para continuar.</p>
+    <p class="subtitle">Crie o escritório e comece a usar.</p>
 
     @if ($errors->any())
       <div class="errors">
         @foreach ($errors->all() as $error)
-          {{ $error }}
+          {{ $error }}<br>
         @endforeach
       </div>
     @endif
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('register') }}">
       @csrf
+      <label for="escritorio">Nome do escritório</label>
+      <input type="text" id="escritorio" name="escritorio" value="{{ old('escritorio') }}" required autofocus>
+
+      <label for="name">Seu nome</label>
+      <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+
       <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
+      <input type="email" id="email" name="email" value="{{ old('email') }}" required>
 
       <label for="password">Senha</label>
       <input type="password" id="password" name="password" required>
 
-      <label class="remember">
-        <input type="checkbox" name="remember">
-        Lembrar de mim
-      </label>
+      <label for="password_confirmation">Confirmar senha</label>
+      <input type="password" id="password_confirmation" name="password_confirmation" required>
 
-      <button type="submit">Entrar</button>
+      <button type="submit">Criar escritório</button>
     </form>
 
-    <div class="divider">ou</div>
-    <a href="{{ route('clientes.intimacoes') }}" class="btn-secondary">Sou cliente e quero consultar minhas intimações</a>
-
-    <p class="foot">Ainda não tem conta? <a href="{{ route('register') }}" style="color: var(--accent-2);">Criar escritório</a></p>
+    <p class="foot">Já tem uma conta? <a href="{{ route('login') }}">Entrar</a></p>
   </div>
 </body>
 </html>

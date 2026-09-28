@@ -44,6 +44,10 @@
           @endif
         </div>
 
+        @if ($prazo->user)
+          <span style="font-size: 0.82rem; color: var(--ink-soft); white-space: nowrap;">{{ $prazo->user->name }}</span>
+        @endif
+
         <span style="font-size: 0.85rem; color: {{ !$prazo->concluido && $prazo->vencimento->isPast() ? 'var(--danger)' : 'var(--ink-soft)' }};">
           {{ $prazo->vencimento->format('d/m/Y') }}
         </span>

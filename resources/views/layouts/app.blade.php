@@ -129,6 +129,48 @@
     margin-bottom: 20px;
   }
 
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .field-label { display: block; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 6px; }
+  .field {
+    width: 100%; padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 9px; color: var(--ink); font-family: inherit; font-size: 0.9rem;
+  }
+  textarea.field { resize: vertical; }
+  select.field { color-scheme: dark; }
+  select.field option { color: var(--ink); background-color: #14151c; }
+  .btn-primary {
+    padding: 10px 18px; border: none; border-radius: 9px; background: var(--gradient);
+    color: var(--accent-ink); font-weight: 700; font-size: 0.9rem; cursor: pointer;
+  }
+  .btn-ghost {
+    padding: 10px 18px; border: 1px solid var(--border); border-radius: 9px; background: transparent;
+    color: var(--ink); font-weight: 600; font-size: 0.9rem; cursor: pointer;
+  }
+  .icon-btn {
+    display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px;
+    border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .icon-btn:hover { color: var(--ink); border-color: var(--accent); }
+  .icon-btn svg { width: 15px; height: 15px; }
+
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0; background: rgba(9, 11, 16, 0.72);
+    z-index: 50; align-items: center; justify-content: center; padding: 24px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: #14151c; border: 1px solid var(--border); border-radius: 16px;
+    width: 100%; max-width: 640px; max-height: 88vh; overflow-y: auto; padding: 26px;
+  }
+  .modal-close { float: right; cursor: pointer; color: var(--ink-faint); font-size: 1.1rem; }
+  .modal-close:hover { color: var(--ink); }
+
+  .badge {
+    display: inline-block; padding: 3px 9px; border-radius: 999px; background: var(--surface-2);
+    border: 1px solid var(--border); font-size: 0.72rem; color: var(--ink-soft);
+  }
+
   @media (max-width: 820px) {
     .shell { flex-direction: column; }
     .sidebar {
@@ -174,9 +216,18 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5M9 13h6M9 17h6"/></svg>
           Intimações (OAB)
         </a>
+
+        @if (Auth::user()->isAdmin())
+          <p class="nav-label">Escritório</p>
+          <a href="{{ route('equipe.index') }}" class="nav-item {{ request()->routeIs('equipe.*') ? 'active' : '' }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8" r="3.2"/><path d="M2.5 20a6 6 0 0 1 12 0"/><path d="M16 4.2a3.2 3.2 0 0 1 0 6.1"/><path d="M17.5 13.2c2.2.5 3.8 2.4 3.8 5.8"/></svg>
+            Equipe
+          </a>
+        @endif
       </nav>
 
       <div class="sidebar-foot">
+        <p style="padding: 0 10px; margin: 0 0 6px; font-size: 0.78rem; color: var(--ink-faint);">{{ Auth::user()->tenant->nome }}</p>
         <a href="{{ route('perfil.edit') }}" class="nav-item {{ request()->routeIs('perfil.*') ? 'active' : '' }}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
           Perfil

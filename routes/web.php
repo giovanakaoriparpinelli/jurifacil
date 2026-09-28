@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FerramentaController;
 use App\Http\Controllers\PrazoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,6 +16,8 @@ Route::get('/', function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'show'])->name('login');
     Route::post('/login', [LoginController::class, 'store']);
+    Route::get('/registro', [RegisterController::class, 'show'])->name('register');
+    Route::post('/registro', [RegisterController::class, 'store']);
 });
 
 Route::get('/clientes/intimacoes', [FerramentaController::class, 'areaCliente'])->name('clientes.intimacoes');
@@ -35,4 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/ferramentas/movimentacoes', [FerramentaController::class, 'movimentacoes'])->name('ferramentas.movimentacoes');
     Route::get('/ferramentas/movimentacoes/consulta', [FerramentaController::class, 'movimentacoesConsulta'])->name('ferramentas.movimentacoes.consulta');
     Route::get('/ferramentas/intimacoes', [FerramentaController::class, 'intimacoes'])->name('ferramentas.intimacoes');
+
+    Route::get('/equipe', [TeamController::class, 'index'])->name('equipe.index');
+    Route::post('/equipe', [TeamController::class, 'store'])->name('equipe.store');
+    Route::put('/equipe/{usuario}', [TeamController::class, 'update'])->name('equipe.update');
+    Route::delete('/equipe/{usuario}', [TeamController::class, 'destroy'])->name('equipe.destroy');
 });

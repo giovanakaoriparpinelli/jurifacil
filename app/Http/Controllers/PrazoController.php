@@ -9,10 +9,9 @@ use Illuminate\View\View;
 
 class PrazoController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $prazos = $request->user()
-            ->prazos()
+        $prazos = Prazo::with('user')
             ->orderBy('concluido')
             ->orderBy('vencimento')
             ->get();
@@ -28,24 +27,22 @@ class PrazoController extends Controller
             'vencimento' => ['required', 'date'],
         ]);
 
-        $request->user()->prazos()->create($data);
+        $data['user_id'] = $request->user()->id;
+
+        Prazo::create($data);
 
         return back()->with('status', 'Prazo adicionado.');
     }
 
-    public function concluir(Request $request, Prazo $prazo): RedirectResponse
+    public function concluir(Prazo $prazo): RedirectResponse
     {
-        abort_unless($prazo->user_id === $request->user()->id, 403);
-
         $prazo->update(['concluido' => ! $prazo->concluido]);
 
         return back();
     }
 
-    public function destroy(Request $request, Prazo $prazo): RedirectResponse
+    public function destroy(Prazo $prazo): RedirectResponse
     {
-        abort_unless($prazo->user_id === $request->user()->id, 403);
-
         $prazo->delete();
 
         return back()->with('status', 'Prazo removido.');
