@@ -224,6 +224,14 @@
             Equipe
           </a>
         @endif
+
+        @if (Auth::user()->is_super_admin)
+          <p class="nav-label">Plataforma</p>
+          <a href="{{ route('superadmin.escritorios') }}" class="nav-item {{ request()->routeIs('superadmin.*') ? 'active' : '' }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+            Escritórios
+          </a>
+        @endif
       </nav>
 
       <div class="sidebar-foot">

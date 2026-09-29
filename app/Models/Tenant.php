@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['nome'])]
+#[Fillable(['nome', 'status'])]
 class Tenant extends Model
 {
     public function usuarios(): HasMany
@@ -17,5 +17,10 @@ class Tenant extends Model
     public function prazos(): HasMany
     {
         return $this->hasMany(Prazo::class);
+    }
+
+    public function isAprovado(): bool
+    {
+        return $this->status === 'aprovado';
     }
 }

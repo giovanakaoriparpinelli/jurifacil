@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -29,7 +28,7 @@ class RegisterController extends Controller
 
         $tenant = Tenant::create(['nome' => $data['escritorio']]);
 
-        $user = User::create([
+        User::create([
             'tenant_id' => $tenant->id,
             'role' => 'admin',
             'name' => $data['name'],
@@ -37,9 +36,6 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        Auth::login($user);
-        $request->session()->regenerate();
-
-        return redirect()->route('dashboard')->with('status', 'Escritório criado com sucesso! Bem-vindo(a) ao Jurifácil.');
+        return redirect()->route('login')->with('status', 'Cadastro recebido! Um administrador da plataforma vai revisar e liberar o acesso em breve.');
     }
 }

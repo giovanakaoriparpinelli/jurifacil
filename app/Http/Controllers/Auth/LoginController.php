@@ -28,6 +28,20 @@ class LoginController extends Controller
                 ->onlyInput('email');
         }
 
+        $user = Auth::user();
+
+        if (! $user->tenant->isAprovado()) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            $mensagem = $user->tenant->status === 'rejeitado'
+                ? 'O cadastro do seu escritório não foi aprovado. Entre em contato com o suporte.'
+                : 'Seu escritório ainda está aguardando aprovação. Você poderá entrar assim que liberarmos o acesso.';
+
+            return back()->withErrors(['email' => $mensagem])->onlyInput('email');
+        }
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('dashboard'));

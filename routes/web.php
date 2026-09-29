@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FerramentaController;
 use App\Http\Controllers\PrazoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,4 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/equipe', [TeamController::class, 'store'])->name('equipe.store');
     Route::put('/equipe/{usuario}', [TeamController::class, 'update'])->name('equipe.update');
     Route::delete('/equipe/{usuario}', [TeamController::class, 'destroy'])->name('equipe.destroy');
+
+    Route::get('/admin/escritorios', [SuperAdminController::class, 'index'])->name('superadmin.escritorios');
+    Route::post('/admin/escritorios/{tenant}/aprovar', [SuperAdminController::class, 'aprovar'])->name('superadmin.escritorios.aprovar');
+    Route::post('/admin/escritorios/{tenant}/rejeitar', [SuperAdminController::class, 'rejeitar'])->name('superadmin.escritorios.rejeitar');
 });

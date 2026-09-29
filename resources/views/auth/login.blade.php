@@ -109,6 +109,15 @@
     font-size: 0.85rem;
     margin-bottom: 18px;
   }
+  .status {
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    color: var(--accent-2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+  }
   .foot {
     margin-top: 24px;
     text-align: center;
@@ -154,6 +163,10 @@
   <div class="card">
     <p class="brand">Jurifácil</p>
     <p class="subtitle">Acesse sua conta para continuar.</p>
+
+    @if (session('status'))
+      <div class="status">{{ session('status') }}</div>
+    @endif
 
     @if ($errors->any())
       <div class="errors">
