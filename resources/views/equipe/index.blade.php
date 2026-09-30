@@ -4,6 +4,19 @@
 
 @section('content')
   <div class="card" style="margin-bottom: 24px;">
+    <h2 style="margin: 0 0 14px; font-size: 1rem;">Nome do escritório</h2>
+    <form method="POST" action="{{ route('escritorio.update') }}" style="display: flex; gap: 12px; align-items: end; flex-wrap: wrap;">
+      @csrf
+      @method('PUT')
+      <div style="flex: 1; min-width: 220px;">
+        <label class="field-label">Nome exibido no sistema</label>
+        <input type="text" name="nome" required maxlength="255" class="field" value="{{ old('nome', auth()->user()->tenant->nome) }}">
+      </div>
+      <button type="submit" class="btn-primary">Salvar</button>
+    </form>
+  </div>
+
+  <div class="card" style="margin-bottom: 24px;">
     <details>
       <summary style="cursor: pointer; font-size: 1rem; font-weight: 700; list-style: none;">+ Novo usuário</summary>
       <form method="POST" action="{{ route('equipe.store') }}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; align-items: end;">
@@ -46,6 +59,13 @@
         </button>
 
         @if ($usuario->id !== auth()->id())
+          <form method="POST" action="{{ route('equipe.resetar-senha', $usuario) }}" onsubmit="return confirm('Redefinir a senha de {{ $usuario->name }}? Uma nova senha temporária será gerada e a atual deixa de funcionar.');">
+            @csrf
+            <button type="submit" class="icon-btn" title="Redefinir senha">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M16 7l3 3M14 9l2 2"/></svg>
+            </button>
+          </form>
+
           <form method="POST" action="{{ route('equipe.destroy', $usuario) }}" onsubmit="return confirm('Remover {{ $usuario->name }}? Os prazos criados por essa pessoa continuam no escritório.');">
             @csrf
             @method('DELETE')

@@ -60,6 +60,38 @@ class TeamController extends Controller
         return back()->with('status', 'Usuário atualizado.');
     }
 
+    public function resetarSenha(Request $request, User $usuario): RedirectResponse
+    {
+        abort_unless($request->user()->isAdmin(), 403);
+        abort_unless($usuario->tenant_id === $request->user()->tenant_id, 404);
+
+        if ($usuario->id === $request->user()->id) {
+            return back()->withErrors(['usuario' => 'Para trocar a sua própria senha, use Perfil.']);
+        }
+
+        $senhaTemporaria = Str::password(10, symbols: false);
+
+        $usuario->forceFill([
+            'password' => Hash::make($senhaTemporaria),
+            'remember_token' => null,
+        ])->save();
+
+        return back()->with('status', "Senha de {$usuario->name} redefinida. Senha temporária: {$senhaTemporaria} — repasse e peça para trocar em Perfil no primeiro login.");
+    }
+
+    public function atualizarEscritorio(Request $request): RedirectResponse
+    {
+        abort_unless($request->user()->isAdmin(), 403);
+
+        $data = $request->validate([
+            'nome' => ['required', 'string', 'max:255'],
+        ]);
+
+        $request->user()->tenant->update(['nome' => $data['nome']]);
+
+        return back()->with('status', 'Nome do escritório atualizado.');
+    }
+
     public function destroy(Request $request, User $usuario): RedirectResponse
     {
         abort_unless($request->user()->isAdmin(), 403);

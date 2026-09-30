@@ -43,10 +43,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/equipe', [TeamController::class, 'index'])->name('equipe.index');
     Route::post('/equipe', [TeamController::class, 'store'])->name('equipe.store');
+    Route::put('/escritorio', [TeamController::class, 'atualizarEscritorio'])->name('escritorio.update');
+    Route::post('/equipe/{usuario}/resetar-senha', [TeamController::class, 'resetarSenha'])->name('equipe.resetar-senha');
     Route::put('/equipe/{usuario}', [TeamController::class, 'update'])->name('equipe.update');
     Route::delete('/equipe/{usuario}', [TeamController::class, 'destroy'])->name('equipe.destroy');
 
     Route::get('/admin/escritorios', [SuperAdminController::class, 'index'])->name('superadmin.escritorios');
     Route::post('/admin/escritorios/{tenant}/aprovar', [SuperAdminController::class, 'aprovar'])->name('superadmin.escritorios.aprovar');
     Route::post('/admin/escritorios/{tenant}/rejeitar', [SuperAdminController::class, 'rejeitar'])->name('superadmin.escritorios.rejeitar');
+    Route::post('/admin/escritorios/{tenant}/resetar-senha', [SuperAdminController::class, 'resetarSenhaAdmin'])->name('superadmin.escritorios.resetar-senha');
+    Route::delete('/admin/escritorios/{tenant}', [SuperAdminController::class, 'excluir'])->name('superadmin.escritorios.excluir');
 });

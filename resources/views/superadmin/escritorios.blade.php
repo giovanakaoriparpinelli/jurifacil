@@ -38,6 +38,23 @@
             <button type="submit" class="btn-ghost">Rejeitar</button>
           </form>
         @endif
+
+        @if (! $tenant->usuarios->contains('is_super_admin', true))
+          <form method="POST" action="{{ route('superadmin.escritorios.resetar-senha', $tenant) }}" onsubmit="return confirm('Redefinir a senha do admin de {{ $tenant->nome }}? Uma nova senha temporária será gerada e a atual deixa de funcionar.');">
+            @csrf
+            <button type="submit" class="icon-btn" title="Redefinir senha do admin">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M16 7l3 3M14 9l2 2"/></svg>
+            </button>
+          </form>
+
+          <form method="POST" action="{{ route('superadmin.escritorios.excluir', $tenant) }}" onsubmit="return confirm('EXCLUIR {{ $tenant->nome }}? Todos os {{ $tenant->usuarios->count() }} usuário(s) e todos os prazos desse escritório serão apagados. Não há como desfazer.');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="icon-btn" title="Excluir escritório">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13"/></svg>
+            </button>
+          </form>
+        @endif
       </div>
     @empty
       <p style="color: var(--ink-faint); margin: 0; font-size: 0.9rem;">Nenhum escritório cadastrado ainda.</p>
