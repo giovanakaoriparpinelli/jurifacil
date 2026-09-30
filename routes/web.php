@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CasoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\FerramentaController;
 use App\Http\Controllers\PrazoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +39,23 @@ Route::middleware('auth')->group(function () {
     Route::post('/prazos', [PrazoController::class, 'store'])->name('prazos.store');
     Route::patch('/prazos/{prazo}/concluir', [PrazoController::class, 'concluir'])->name('prazos.concluir');
     Route::delete('/prazos/{prazo}', [PrazoController::class, 'destroy'])->name('prazos.destroy');
+
+    Route::get('/tarefas', [TarefaController::class, 'index'])->name('tarefas.index');
+    Route::post('/tarefas', [TarefaController::class, 'store'])->name('tarefas.store');
+    Route::put('/tarefas/{tarefa}', [TarefaController::class, 'update'])->name('tarefas.update');
+    Route::patch('/tarefas/{tarefa}/concluir', [TarefaController::class, 'concluir'])->name('tarefas.concluir');
+    Route::delete('/tarefas/{tarefa}', [TarefaController::class, 'destroy'])->name('tarefas.destroy');
+
+    Route::get('/casos', [CasoController::class, 'index'])->name('casos.index');
+    Route::post('/casos', [CasoController::class, 'store'])->name('casos.store');
+    Route::put('/casos/{caso}', [CasoController::class, 'update'])->name('casos.update');
+    Route::delete('/casos/{caso}', [CasoController::class, 'destroy'])->name('casos.destroy');
+
+    Route::get('/documentos', [DocumentoController::class, 'index'])->name('documentos.index');
+    Route::post('/documentos', [DocumentoController::class, 'store'])->name('documentos.store');
+    Route::get('/documentos/{documento}/baixar', [DocumentoController::class, 'download'])->name('documentos.download');
+    Route::put('/documentos/{documento}', [DocumentoController::class, 'update'])->name('documentos.update');
+    Route::delete('/documentos/{documento}', [DocumentoController::class, 'destroy'])->name('documentos.destroy');
 
     Route::get('/ferramentas/movimentacoes', [FerramentaController::class, 'movimentacoes'])->name('ferramentas.movimentacoes');
     Route::get('/ferramentas/movimentacoes/consulta', [FerramentaController::class, 'movimentacoesConsulta'])->name('ferramentas.movimentacoes.consulta');

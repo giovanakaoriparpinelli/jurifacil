@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Documento;
 use App\Models\Prazo;
 use App\Models\Tenant;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -93,6 +95,9 @@ class SuperAdminController extends Controller
             User::where('tenant_id', $tenant->id)->delete();
             $tenant->delete();
         });
+
+        // As linhas de documentos somem por cascata no banco (sem eventos de model), então os arquivos são apagados aqui.
+        Storage::disk(Documento::DISCO)->deleteDirectory('documentos/'.$tenant->id);
 
         return back()->with('status', "Escritório \"{$nome}\" excluído.");
     }

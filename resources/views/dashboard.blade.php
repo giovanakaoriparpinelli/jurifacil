@@ -20,6 +20,17 @@
     </div>
   </div>
 
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: -8px 0 32px;">
+    <a href="{{ route('tarefas.index', ['responsavel' => 'eu']) }}" style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: block;">
+      <p style="margin: 0 0 6px; color: var(--ink-faint); font-size: 0.8rem;">Minhas tarefas em aberto</p>
+      <p style="margin: 0; font-size: 1.8rem; font-weight: 700;">{{ $minhasTarefasAbertas }}</p>
+    </a>
+    <a href="{{ route('tarefas.index') }}" style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: block;">
+      <p style="margin: 0 0 6px; color: var(--ink-faint); font-size: 0.8rem;">Tarefas atrasadas (escritório)</p>
+      <p style="margin: 0; font-size: 1.8rem; font-weight: 700; color: {{ $tarefasAtrasadas > 0 ? 'var(--danger)' : 'var(--ink)' }};">{{ $tarefasAtrasadas }}</p>
+    </a>
+  </div>
+
   <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px;">
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
       <h2 style="margin: 0; font-size: 1rem;">Próximos prazos</h2>
